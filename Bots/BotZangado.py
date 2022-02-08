@@ -1,5 +1,7 @@
 from Bots.Bot import Bot
 from Bots.Comando import Comando
+import json
+import os
 
 
 class BotZangado(Bot):
@@ -12,6 +14,7 @@ class BotZangado(Bot):
             Comando('Tchau', 'SAI LOGO DAQUI!')
         ]
         self.__comando_erro = 'NÃO EXISTE ESSE COMANDO, IDIOTA!'
+        self.__url_data = '/data/data.json'
 
     @property  # nao esquecer o decorator
     def nome(self):
@@ -33,7 +36,15 @@ class BotZangado(Bot):
         return f'Meu nome é {self.__nome}!!! EU TE ODEIO! Não fale comigo.'
 
     def boas_vindas(self):
+        with open(os.path.abspath('Bots/data.json'), encoding = 'utf-8', mode='r') as json_file:
+            json_data = json.load(json_file)
+
+        print(json_data)
+        for todo in json_data["comandos"]:
+            print(todo)
+
         return f'Você me escolheu, que ÓDIO!'
+    
 
     def despedida(self):
         return f'Finalmente. NÃO AGUENTAVA MAIS VOCÊ!!!! '
