@@ -48,13 +48,13 @@ class Bot(ABC):
 
     def executa_comando(self, cmd):
         print('     --> Eu te respondo: ', end='')
-        erro_ocorre = True
-        if cmd.isnumeric() == True:
+        try:
             cmd = int(cmd)
-            if len(self.comandos) > cmd:
+            try:
                 print(self.comandos[cmd].pegar_resposta())
-                erro_ocorre = False
-        if erro_ocorre:
+            except LookupError:
+                print(self.comando_erro)
+        except (ValueError, TypeError):
             print(self.comando_erro)
 
     @abstractmethod
